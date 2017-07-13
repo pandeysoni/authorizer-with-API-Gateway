@@ -1,4 +1,6 @@
-#custom-auth-lambda-function
-	run npm install jsonwebtoken
-	upload indedx.js + dependecy modules(node_modules) to aws lambda
-	use this lambda function as a authorizer to api gateway
+# custom-auth-lambda-function
+	Run 
+	npm install jsonwebtoken
+	upload index.js + dependecy modules(node_modules) to aws lambda
+	use uploaded lambda function as a authorizer to api gateway
+	
