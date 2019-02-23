@@ -35,19 +35,6 @@ exports.oauth = (event, context, callback) => {
                     })
         },
         (user, callback) => {
-            if(user.districtId){
-                let oauth = new Oauth();
-                oauth.getDistrictStatus(user.districtId)
-                    .then(data => {
-                        callback(null, user)
-                    })
-                    .catch(err => {
-                        callback(err, null, null);
-                    })
-            }
-            else callback(null, user)
-        },
-        (user, callback) => {
             let oauth = new Oauth();
             oauth.generateToken(user.userId, user.districtId, user.role, (err, result) => {
                 callback(err,result)
