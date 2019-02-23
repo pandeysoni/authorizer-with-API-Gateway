@@ -1,7 +1,7 @@
 const GoogleAuth = require('google-auth-library');
 const auth = new GoogleAuth;
-const clientId = '1067630502311-5ro1luqrv3uisl0n6pofagvsrmd0g81a.apps.googleusercontent.com';
-const clientSecret = 'btc5VPx6H3X6v6BtlUty1bPM';
+const clientId = 'clientid';
+const clientSecret = 'clientSecret';
 const client = new auth.OAuth2(clientId, clientSecret, '');
 const Oauth = require('../businesslogic/oauth');
 const async = require('async');
