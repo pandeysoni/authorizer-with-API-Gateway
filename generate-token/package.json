@@ -1,0 +1,11 @@
+{
+  "name": "authentication-service",
+  "version": "1.0.0",
+  "description": "authentication Service",
+  "author": "Soni Pandey",
+  "dependencies": {
+    "async": "^2.5.0",
+    "google-auth-library": "^0.10.0",
+    "jsonwebtoken": "^7.4.1"
+  }
+}

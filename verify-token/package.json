@@ -1,0 +1,11 @@
+{
+  "name": "custom-authorizer",
+  "version": "1.0.0",
+  "description": "Custom Authorizer For Services",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.203.0",
+    "jsonwebtoken": "^7.4.1"
+  },
+  "author": "Soni Pandey"
+}

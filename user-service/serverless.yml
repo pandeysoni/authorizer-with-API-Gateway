@@ -1,0 +1,40 @@
+service: user-service
+
+provider:
+  name: aws
+  profile: default
+  role: ${self:custom.config.iamrole}
+  runtime: nodejs6.10
+  region: ${self:custom.config.region}
+  stage: ${self:custom.config.stage}
+  memorySize: 128
+  timeout: 30
+  versionFunctions: false
+  environment:
+    STAGE: ${self:custom.config.stage}
+    TABLE_USERS: ${self:custom.config.stage}-${self:custom.config.tables.users.name}
+
+functions:
+  user-list:
+    handler: functions/list.list
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+          authorizer: ${self:custom.config.authFunction}
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+custom:
+  config: ${file(../config.yml)}

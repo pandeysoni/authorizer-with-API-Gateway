@@ -1,0 +1,28 @@
+service: oauth-service
+
+config: ${file(../config.yml)}
+
+provider:
+  name: aws
+  role: ${self:custom.config.iamrole}
+  runtime: nodejs6.10
+  region: ${self:custom.config.region}
+  stage: ${self:custom.config.stage}
+  memorySize: 128
+  versionFunctions: false
+  environment:
+    TABLE_USERS: ${self:custom.config.stage}-${self:custom.config.tables.users.name}
+    INDEX_USER_EMAIL_GSI: ${self:custom.config.stage}-${self:custom.config.tables.users.gsi.email}
+    PRIVATE_TOKEN: ${self:custom.config.privateKey}
+
+functions:
+  token-generate:
+    handler: functions/oauth.oauth
+    events:
+      - http:
+          path: /get-token
+          method: post
+          cors: true
+
+custom:
+  config: ${file(../config.yml)}
