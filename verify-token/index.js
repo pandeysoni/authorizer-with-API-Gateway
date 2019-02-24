@@ -8,6 +8,21 @@ exports.handler = (event, context) => {
   let token = extract_access_token(event.authorizationToken);
   try {
     let decoded = jwt.verify(token, signingKey);
+    if (decoded.role == "Admin") {
+      let resource = methodArn.substring(0, methodArn.indexOf("/") + 1) + "*"
+      let resourceList = ["arn:aws:execute-api:us-west-2:accountId:lwbctpkhk1/*"]
+      let resouceIndex = resourceList.indexOf(resource)
+      if (resouceIndex >= 0) {
+        context.done(null, generatePolicy(decoded.email, 'Allow', event.methodArn, decoded))
+      } else context.done(null, generatePolicy('user', 'Deny', methodArn));
+    } else if (decoded.role == "User") {
+      let resource = methodArn.substring(0, methodArn.indexOf("/") + 1) + "*"
+      let resourceList = ["arn:aws:execute-api:us-west-2:accountId:s4kl2she14/*"]
+      let resouceIndex = resourceList.indexOf(resource)
+      if (resouceIndex >= 0) context.done(null, generatePolicy(decoded.email, 'Allow', event.methodArn, decoded))
+      else context.done(null, generatePolicy('user', 'Deny', methodArn));
+    } else context.done(null, generatePolicy('user', 'Deny', methodArn));
+    
     context.done(null, generatePolicy(decoded.userId, 'Allow', event.methodArn, decoded));
   } catch(ex) {
     console.error(ex.name + ": " + ex.message);
