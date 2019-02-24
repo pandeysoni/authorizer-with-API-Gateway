@@ -6,7 +6,7 @@ iamrole: arn:aws:iam::accountId:role/Lambda
 privateKey: 37LvDSm5XvjYOh9Y
 tables:
   users:
-	name: Users
-	gsi: 
-	  email: 
-		name: UsersEmailGsi
+    name: Users
+    gsi:
+      email: 
+        name: UsersEmailGsi
