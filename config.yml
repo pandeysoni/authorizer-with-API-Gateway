@@ -4,6 +4,7 @@ region: us-east-1
 accountId: accountId
 iamrole: arn:aws:iam::accountId:role/Lambda
 privateKey: 37LvDSm5XvjYOh9Y
+authFunction: arn:aws:lambda:us-west-2:accountId:function:custom-authorizer
 tables:
   users:
     name: Users
